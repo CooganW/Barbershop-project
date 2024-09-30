@@ -1,0 +1,10 @@
+### Create Time Slot
+POST http://localhost:8000/api/time_slots/
+Content-Type: application/json
+Authorization: 58b66319180c37f40b6ad5ff5de295d83104337e
+
+{
+    "start_time": "2023-12-24T13:00:00Z",
+    "end_time": "2023-12-24T14:00:00Z",
+    "barber": 2  // Replace with the actual barber ID
+}

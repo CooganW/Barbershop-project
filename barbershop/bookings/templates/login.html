@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="appoin">
+    <div class="appoin-card">
+        <div class="card-content">
+            <h1 class="section-title">Login</h1>
+
+            <form id="auth-form" method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+                
+                <div class="input-group">
+                    <input class="input-field"
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Username" required>
+                </div>
+
+                <div class="input-group">
+                    <input class="input-field"
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Password" required>
+                </div>
+
+                <button type="submit" class="form-btn">Login</button>
+
+                <p id="error-message" style="color: red; display: none;"></p>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/script.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Django Auth",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

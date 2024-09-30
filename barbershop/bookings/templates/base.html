@@ -1,0 +1,461 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- primary meta tags -->
+        <title>{% block title %}Barber - Barbers & Hair Stylists{% endblock %}</title>
+        <meta name="title" content="Barber - Barbers & Hair Stylists">
+        <meta name="description" content="{% block meta_description %}Chop chop to your hair{% endblock %}">
+
+        <!-- favicon -->
+        <link rel="icon" href="{% static "favicon.svg" %}" type="image/svg+xml">
+
+        <!-- custom css link -->
+        <link rel="stylesheet" href="{% static "css/style.css" %}">
+
+        <!-- google font link-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik:wght@300,400;700&display=swap"
+        rel="stylesheet">
+
+        <!-- flaticon -->
+        <link rel="stylesheet" href="{% static "css/flaticon.min.css" %}">
+    </head>
+
+
+    <body id="top">
+        <!-- header -->
+        <header class="header">
+            <div class="header-top">
+                <div class="container">
+                    <ul class="header-top-list">
+
+                        <li class="header-top-item">
+                            <ion-icon name="call-outline" aria-hidden="true"></ion-icon>
+                            <p class="item-title">Call Us: </p>
+                            <a href="tel:1300882525" class="item-link">+1-300-88-2525</a>
+                        </li>
+
+                        <li class="header-top-item">
+                            <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
+                            <p class="item-title">Opening Hours: </p>
+                            <p class="item-text">Wednesday - Sunday, 10:00AM - 6:00PM </p>
+                        </li>
+
+                        <li>
+                            <ul class="social-list">
+                                <li>
+                                    <a href="https://www.facebook.com/zuck/" class="social-link">
+                                        <ion-icon name="logo-facebook"></ion-icon>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="https://www.instagram.com/kevin/" class="social-link">
+                                        <ion-icon name="logo-instagram"></ion-icon>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="https://x.com/jack" class="social-link">
+                                        <ion-icon name="logo-twitter"></ion-icon>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#" class="social-link">
+                                        <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="header-bottom" data-header>
+                <div class="container">
+
+                    <a href="#" class="logo">
+                        Barber
+                        <span class="span">Hair Salon</span>
+                    </a>
+
+                    <nav class="navbar container" data-navbar>
+                        <ul class="navbar-list">
+
+                            <li class="navbar-item">
+                                <a href="#services" class="navbar-link" data-nav-link>Services</a>
+                            </li>
+
+                            <li class="navbar-item">
+                                <a href="#pricing" class="navbar-link" data-nav-link>Pricing</a>
+                            </li>
+
+                            <li class="navbar-item">
+                                <a href="#contact" class="navbar-link" data-nav-link>Contact</a>
+                            </li>
+
+                            <li class="navbar-item">
+                                <a href="{% url 'appointment' %}" class="navbar-link" data-nav-link>Appointments</a>
+                            </li>
+
+                            {% if user.is_authenticated %}
+                            <li class="navbar-item">
+                                <a href="{% url 'time_slot_manager' %}" class="navbar-link" data-nav-link>Admin</a>
+                            </li>
+                            {% endif %}
+
+                            <li class="navbar-item">
+                                <a href="#" class="navbar-link" data-nav-link>Register</a>
+                            </li>
+
+                            <li class="navbar-item">
+                                {% if user.is_authenticated %}
+                                {% csrf_token %}
+                                <a href="{% url 'logout' %}" class="navbar-link" data-nav-link>Logout</a>
+                                {% else %}
+                                <a href="{% url 'login' %}" class="navbar-link" data-nav-link>Login</a>
+                                {% endif %}
+                            </li>
+
+                        </ul>
+                    </nav>
+
+                    <button class="nav-toggle-btn" aria-label="toggle menu" data-nav-toggler>
+                        <ion-icon name="menu-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                    <a href="#appointment" class="btn has-before">
+                        <span class="span">Appointment</span>
+                        <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                    </a>
+                    
+                </div>
+            </div>
+        </header>
+
+
+        {% block main_content %}
+
+        {% endblock %}
+
+        {% block content %}
+
+        {% endblock %}
+
+    </body>
+
+    <!-- appointment -->
+    {% block appointment_form %}
+        <section class="section appoin" id="appointment" aria-label="appointment">
+            <div class="container">
+
+                <div class="appoin-card">
+
+                    <div class="container-fluid">
+                        
+                        <div class="card-content">
+                            <h2 class="h2 section-title">Appointment Form</h2>
+                            <p class="section-text">
+                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam quam, impedit maxime veritatis eum delectus. Perspiciatis ullam blanditiis accusamus est, beatae recusandae nam libero placeat fuga culpa pariatur alias inventore.
+                            </p>
+
+                            <form action="{% url 'appointment' %}" class="appoin-form" method="POST">
+                                {% csrf_token %}
+                                <div class="input-wrapper">
+                                    <input type="text" 
+                                    name="full_name" 
+                                    placeholder="Full Name" required 
+                                    class="input-field">
+                                </div>
+
+                                <div class="input-wrapper">
+                                    <input type="email" 
+                                    name="email" 
+                                    placeholder="Email Address" required 
+                                    class="input-field">
+                                </div>
+
+                                <div class="input-wrapper">
+                                    <input type="text" 
+                                    name="phone" 
+                                    placeholder="Phone Number" required
+                                    class="input-field">
+                                </div>
+
+                                <div class="input-wrapper">
+                                    <select name="category" class="input-field">
+
+                                        <option value="Select category">Select category</option>
+                                        <option value="Beauty & Spa">Beauty & Spa</option>
+                                        <option value="Body Massage">Body Massage</option>
+                                        <option value="Shaving & Facial">Shaving & Facial</option>
+                                        <option value="Hair Color">Hair Color</option>
+
+                                    </select>
+                                </div>
+
+
+                                <div class="input-wrapper">
+                                    <label for="timeslot">Open Timeslot</label>
+                                    <ul id="time-slot-list"></ul>
+                                    <select name="chosen_timeslot" class="input-field" required>
+                                        {% for slot in available_timeslots %}
+                                            <option value="{{ slot.pk }}">{{ slot.get_day_of_week_display }} {{ slot.start_time }} - {{ slot.end_time }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                
+
+                                <div class="input-wrapper">
+
+                                    <textarea name="message"
+                                    placeholder="Message"
+                                    required class="input-field"></textarea>
+
+                                </div>
+
+                                <div class="input-wrapper">
+
+                                    <button type="submit" class="form-btn">
+                                        <span class="span">Appointment Now</span>
+
+                                        <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+
+                                    </button>
+                                </div>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+                    
+                </div>
+
+            </div>
+        </section>
+    {% endblock %}
+
+
+    <!-- footer -->
+    <body>
+        <footer class="footer has-bg-image" style="background-image: url({% static "images/background.png" %});" aria-label="footer">
+            <div class="container">
+                <div class="footer-top">
+                    <div class="footer-brand">
+                        <a href="#" class="logo">
+                            Barber
+                            <span class="span">Hair Salon</span>
+                        </a>
+
+                        <form action="https://formsubmit.co/cooganwong@gmail.com"method="POST" class="input-wrapper">
+                            
+                            <input type="email"
+                            name="email"
+                            placeholder="Enter Your Email" required
+                            class="email-field">
+
+                            <button type="submit" class="btn has-before">
+                                <span class="span">Subscribe Now</span>
+                                <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                            </button>
+
+                        </form>
+                    </div>
+
+                    <div class="footer-link-box">
+
+                        <ul class="footer_list">
+
+                            <li>
+                                <p class="footer-list-title">Quick Links</p>
+                            </li>
+
+                            <li>
+                                <a href="#services" class="footer-link has-before">Our Services</a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="footer-link has-before">Meet Our Team</a>
+                            </li>
+
+                            <li>
+                                <a href="#gallery" class="footer-link has-before">Our Portfolio</a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="footer-link has-before">Career</a>
+                            </li>
+
+                            <li>
+                                <a href="#blog" class="footer-link has-before">News & Blog</a>
+                            </li>
+
+                        </ul>
+
+                        <ul class="footer_list">
+
+                            <li>
+                                <p class="footer-list-title">Services</p>
+                            </li>
+
+                            <li>
+                                <a href="#" class="footer-link has-before">Hair Cutting & Styling</a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="footer-link has-before">Shaving & Design</a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="footer-link has-before">Hair Coloring</a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="footer-link has-before">Beauty & Spa</a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="footer-link has-before">Body Massages</a>
+                            </li>
+
+                        </ul>
+
+                        <ul class="footer_list">
+
+                            <li>
+                                <p class="footer-list-title" id="blog">Recent News</p>
+                            </li>
+
+                            <li>
+                                <div class="blog-card">
+                                    <figure class="card-banner img-holder" style="--width: 70; --height: 75;">
+                                        <img src="{% static "images/footer-blog-1.jpg" %}"
+                                        width="70" 
+                                        height="75" 
+                                        loading="lazy" 
+                                        alt="Random Blog Stuff Part 1" 
+                                        class="img-cover">
+                                    </figure>
+
+                                    <div class="card-content">
+                                        <h3>
+                                            <a href="#" class="card-title">Random Blog Stuff Version 1.0</a>
+                                        </h3>
+
+                                        <div class="card-date">
+                                            <ion-icon name="calendar-outline" aria-hidden="true"></ion-icon>
+
+                                            <time datetime="2024-09-18">18 September 2024</time>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="blog-card">
+                                    <figure class="card-banner img-holder" style="--width: 70; --height: 75;">
+                                        <img src="{% static "images/footer-blog-2.jpg" %}"
+                                        width="70" 
+                                        height="75" 
+                                        loading="lazy" 
+                                        alt="Random Blog Stuff Part 2" 
+                                        class="img-cover">
+                                    </figure>
+
+                                    <div class="card-content">
+                                        <h3>
+                                            <a href="#" class="card-title">Random Blog Stuff Version 2.0</a>
+                                        </h3>
+
+                                        <div class="card-date">
+                                            <ion-icon name="calendar-outline" aria-hidden="true"></ion-icon>
+
+                                            <time datetime="2024-09-18">19 September 2024</time>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+
+                        <ul class="footer_list">
+
+                            <li>
+                                <p class="footer-list-title" id="contact">Contact Us</p>
+                            </li>
+
+                            <li class="footer-list-title">
+                                <ion-icon name="location-outline" aria-hidden="true"></ion-icon>
+
+                                <address class="contact-link">
+                                    7100 Corporate Dr, Plano, TX 75024, United States
+                                </address>
+                            </li>
+
+                            <li class="footer-list-title">
+                                <ion-icon name="call-outline" aria-hidden="true"></ion-icon>
+
+                                <a href="tel:+1300882525" class="contact-link">+1-300-88-2525</a>
+                            </li>
+
+                            <li class="footer-list-title">
+                                <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
+
+                                <span class="contact-link">Wednesday - Sunday, 10:00AM - 6:00PM</span>
+                            </li>
+
+                            <li class="footer-list-title">
+                                <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
+
+                                <a href="mailto:customer.service@pizzahut.com.my" class="contact-link">customer.service@pizzahut.com.my</a>
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+                <div class="footer-bottom">
+                    <p class="copyright">
+                        &copy; 2020 <a href="#" class="copyright-link">Pizza Hut Malaysia</a>. All Rights Reserved.
+                    </p>
+                </div>
+
+            </div>
+        </footer>
+    </body>
+
+
+    <!-- back to top -->
+    <a href="#top" class="back-top-btn active" aria-label="back to top" data-back-top-btn>
+        <ion-icon name="chevron-up" aria-hidden="true"></ion-icon>
+    </a>
+
+
+    <!-- custom js link -->
+    <script
+    src="{% static "js/script.js" %}" defer>
+    </script>
+
+
+    <!-- ionicon links -->
+    <script 
+    type="module" 
+    src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js">
+    </script>
+
+    <script 
+    nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js">
+    </script>
+
+</html>

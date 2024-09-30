@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Please review your information{% endblock %}
+
+{% block review %}
+    <main>
+        <section class="section hero has-before appoin" id="appointment" aria-label="appointment">
+            <div class="container">
+                <div class="appoin-card">
+                    <div class="container-fluid">
+                        <div class="card-content">
+                            <center>
+                                <h2 class="h2 section-title">Please review your information</h2>
+                                <strong>Name: </strong>{{ request.GET.full_name }}<br/>
+                                <strong>Email: </strong>{{ request.GET.email }}<br/>
+                                <strong>Contact: </strong>{{ request.GET.phone }}<br/>
+                                <strong>Request: </strong>{{ request.GET.category }}<br/>
+                                <strong>Timeslot: </strong>{{ request.GET.chosen_timeslot }}<br/>
+                                <strong>Message: </strong>{{ request.GET.message }}<br/>
+
+                                <br/><br/>
+                                <strong>Note: </strong>
+                                We will contact you shortly via email to confirm your appointment.
+                            </center>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container text-center">
+                    <a href="{% url 'home' %}" class="btn has-before">Back to Homepage</a>
+                    <a href="{% url 'appointment' %}" class="btn has-before">Book Another Appointment</a>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
